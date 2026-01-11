@@ -1,12 +1,11 @@
-/**
- * Created by exodus4d
- * static signature types
- *
- * (*) marked fields are in-game verified and
- * proofed, signature names (copy & paste from scanning window)
- */
+/* ============================================================================
+ * File: signatureTypes.js
+ * Purpose: Static signature types and signature name lists used to drive UI
+ *          dropdown options for EVE scanning signatures.
+ * ========================================================================== */
+/* signatureTypes.js */
 
- define([], () => {
+define([], () => {
     'use strict';
 
     // signature sources
@@ -257,11 +256,13 @@
         4: 'Superior Blood Raiders Covert Research Facility'
     };
 
-
-
     // Gas sites ======================================================================================================
+    // Cleanup:
+    // - Define a shared base list for the five Perimeter Reservoirs that exist in every C-class.
+    // - Use Object.assign to reduce duplication (similar to how nullData is merged into C1/C2/C3).
+    // - Preserve the original key ordering differences in C5/C6 by overriding keys after merging.
 
-    let c1Gas = {
+    const gasCommon = {
         1: 'Barren Perimeter Reservoir', //*
         2: 'Token Perimeter Reservoir', //*
         3: 'Minor Perimeter Reservoir', //*
@@ -269,220 +270,216 @@
         5: 'Ordinary Perimeter Reservoir' //*
     };
 
-    let c2Gas = {
-        1: 'Barren Perimeter Reservoir', //*
-        2: 'Token Perimeter Reservoir', //*
-        3: 'Minor Perimeter Reservoir', //*
-        4: 'Sizeable Perimeter Reservoir', //*
-        5: 'Ordinary Perimeter Reservoir' //*
-    };
+    let c1Gas = Object.assign({}, gasCommon);
 
-    let c3Gas = {
-        1: 'Barren Perimeter Reservoir', //*
-        2: 'Token Perimeter Reservoir', //*
-        3: 'Minor Perimeter Reservoir', //*
-        4: 'Sizeable Perimeter Reservoir', //*
-        5: 'Ordinary Perimeter Reservoir', //*
+    let c2Gas = Object.assign({}, gasCommon);
+
+    let c3Gas = Object.assign({}, gasCommon, {
         6: 'Bountiful Frontier Reservoir', //*
         7: 'Vast Frontier Reservoir' //*
-    };
+    });
 
-    let c4Gas = {
-        1: 'Barren Perimeter Reservoir', //*
-        2: 'Token Perimeter Reservoir', //*
-        3: 'Minor Perimeter Reservoir', //*
-        4: 'Sizeable Perimeter Reservoir', //*
-        5: 'Ordinary Perimeter Reservoir', //*
+    let c4Gas = Object.assign({}, gasCommon, {
         6: 'Vast Frontier Reservoir', //*
         7: 'Bountiful Frontier Reservoir' //*
-    };
+    });
 
-    let c5Gas = {
-        1: 'Barren Perimeter Reservoir', //*
+    // C5 and C6 keep their original key-to-name layout by overriding after the merge
+    let c5Gas = Object.assign({}, gasCommon, {
         2: 'Minor Perimeter Reservoir', //*
         3: 'Ordinary Perimeter Reservoir', //*
-        4: 'Sizeable Perimeter Reservoir', //*
         5: 'Token Perimeter Reservoir', //*
         6: 'Bountiful Frontier Reservoir', //*
         7: 'Vast Frontier Reservoir', //*
         8: 'Instrumental Core Reservoir', //*
         9: 'Vital Core Reservoir' //*
-    };
+    });
 
-    let c6Gas = {
-        1: 'Barren Perimeter Reservoir', //*
+    let c6Gas = Object.assign({}, gasCommon, {
         2: 'Minor Perimeter Reservoir', //*
         3: 'Ordinary Perimeter Reservoir', //*
-        4: 'Sizeable Perimeter Reservoir', //*
         5: 'Token Perimeter Reservoir', //*
         6: 'Bountiful Frontier Reservoir', //*
         7: 'Vast Frontier Reservoir', //*
         8: 'Instrumental Core Reservoir', //*
         9: 'Vital Core Reservoir' //*
-    };
-    
-    // Ore sites ======================================================================================================
+    });
 
-    let c1Ore = {
-        1: 'Ordinary Perimeter Deposit', //*
-        2: 'Common Perimeter Deposit', //*
-        3: 'Unexceptional Frontier Deposit', //*
-        4: 'Average Frontier Deposit', //*
-        5: 'Isolated Core Deposit', //*
-        6: 'Uncommon Core Deposit' //*
-    };
+// Ore sites ======================================================================================================
+// Cleanup:
+// - C1/C2/C3/C4 share the same first 4 ore sites (same keys and names).
+// - C1/C2 share the same tail (keys 5–6).
+// - C3/C4 share the same two tail names but in different key order (preserve ordering by class).
+// - Leave C5 and C6 unchanged to avoid any key/order surprises.
 
-    let c2Ore = {
-        1: 'Ordinary Perimeter Deposit', //*
-        2: 'Common Perimeter Deposit', //*
-        3: 'Unexceptional Frontier Deposit', //*
-        4: 'Average Frontier Deposit', //*
-        5: 'Isolated Core Deposit', //*
-        6: 'Uncommon Core Deposit' //*
-    };
+const oreCommonC1C4 = {
+    1: 'Ordinary Perimeter Deposit', //*
+    2: 'Common Perimeter Deposit', //*
+    3: 'Unexceptional Frontier Deposit', //*
+    4: 'Average Frontier Deposit' //*
+};
 
-    let c3Ore = {
-        1: 'Ordinary Perimeter Deposit', //*
-        2: 'Common Perimeter Deposit', //*
-        3: 'Unexceptional Frontier Deposit', //*
-        4: 'Average Frontier Deposit', //*
-        5: 'Infrequent Core Deposit', //*
-        6: 'Unusual Core Deposit' //*
-    };
+let c1Ore = Object.assign({}, oreCommonC1C4, {
+    5: 'Isolated Core Deposit', //*
+    6: 'Uncommon Core Deposit' //*
+});
 
-    let c4Ore = {
-        1: 'Ordinary Perimeter Deposit', //*
-        2: 'Common Perimeter Deposit', //*
-        3: 'Unexceptional Frontier Deposit', //*
-        4: 'Average Frontier Deposit', //*
-        5: 'Unusual Core Deposit', //*
-        6: 'Infrequent Core Deposit' //*
-    };
+let c2Ore = Object.assign({}, oreCommonC1C4, {
+    5: 'Isolated Core Deposit', //*
+    6: 'Uncommon Core Deposit' //*
+});
 
-    let c5Ore = {
-        1: 'Average Frontier Deposit', //*
-        2: 'Unexceptional Frontier Deposit', //*
-        3: 'Uncommon Core Deposit', //*
-        4: 'Ordinary Perimeter Deposit', //*
-        5: 'Common Perimeter Deposit', //*
-        6: 'Exceptional Core Deposit', //*
-        7: 'Infrequent Core Deposit', //*
-        8: 'Unusual Core Deposit', //*
-        9: 'Rarified Core Deposit', //*
-        10: 'Isolated Core Deposit' //*
-    };
+let c3Ore = Object.assign({}, oreCommonC1C4, {
+    5: 'Infrequent Core Deposit', //*
+    6: 'Unusual Core Deposit' //*
+});
 
-    let c6Ore = {
-        1: 'Ordinary Perimeter Deposit', //*
-        2: 'Common Perimeter Deposit', //*
-        3: 'Unexceptional Frontier Deposit', //*
-        4: 'Average Frontier Deposit', //*
-        5: 'Rarified Core Deposit' //*
-    };
+let c4Ore = Object.assign({}, oreCommonC1C4, {
+    5: 'Unusual Core Deposit', //*
+    6: 'Infrequent Core Deposit' //*
+});
 
-    let c13Ore = {
-        1: 'Shattered Debris Field',
-        2: 'Shattered Ice Field'
-    };
+// C5 and C6 are left as-is (different ordering / different item sets)
+let c5Ore = {
+    1: 'Average Frontier Deposit', //*
+    2: 'Unexceptional Frontier Deposit', //*
+    3: 'Uncommon Core Deposit', //*
+    4: 'Ordinary Perimeter Deposit', //*
+    5: 'Common Perimeter Deposit', //*
+    6: 'Exceptional Core Deposit', //*
+    7: 'Infrequent Core Deposit', //*
+    8: 'Unusual Core Deposit', //*
+    9: 'Rarified Core Deposit', //*
+    10: 'Isolated Core Deposit' //*
+};
+
+let c6Ore = {
+    1: 'Ordinary Perimeter Deposit', //*
+    2: 'Common Perimeter Deposit', //*
+    3: 'Unexceptional Frontier Deposit', //*
+    4: 'Average Frontier Deposit', //*
+    5: 'Rarified Core Deposit' //*
+};
+
+let c13Ore = {
+    1: 'Shattered Debris Field',
+    2: 'Shattered Ice Field'
+};
+
 
     // Wormholes ======================================================================================================
 
-    // all k-space exits are static or K162
-    let c1WH = {
-        1:  'H121 - C1',
-        2:  'C125 - C2',
-        3:  'O883 - C3',
-        4:  'M609 - C4',
-        5:  'L614 - C5',
-        6:  'S804 - C6',
-        7:  'N110 - H',
-        8:  'J244 - L',
-        9:  'J377 - L Turner',
-        10:  'Z060 - 0.0',
-        11: 'F353 - C12 Thera'
+    // K162 is a generic “exit/unknown” type and is useful as a selectable option everywhere.
+    const k162WH = {
+        0: 'K162 - Unknown/Exit' // Added 20260111
     };
+
+    // all k-space exits are static or K162
+    let c1WH = Object.assign({}, k162WH, {
+        1: 'H121 - C1',
+        2: 'C125 - C2',
+        3: 'O883 - C3',
+        4: 'M609 - C4',
+        5: 'L614 - C5',
+        6: 'S804 - C6',
+        7: 'N110 - H',
+        8: 'J244 - L',
+        9: 'J377 - L Turner',
+        10: 'Z060 - 0.0',
+        11: 'F353 - C12 Thera',
+        12: 'E004 - Frig Hole (short-life)' // Added 20260111
+    });
 
     // all w-space -> w-space are statics or K162
-    let c2WH = {
-        1:  'Z647 - C1',
-        2:  'D382 - C2',
-        3:  'O477 - C3',
-        4:  'Y683 - C4',
-        5:  'N062 - C5',
-        6:  'R474 - C6',
-        7:  'B274 - H',
-        8:  'A239 - L',
-        9:  'J377 - L Turner',
+    let c2WH = Object.assign({}, k162WH, {
+        1: 'Z647 - C1',
+        2: 'D382 - C2',
+        3: 'O477 - C3',
+        4: 'Y683 - C4',
+        5: 'N062 - C5',
+        6: 'R474 - C6',
+        7: 'B274 - H',
+        8: 'A239 - L',
+        9: 'J377 - L Turner',
         10: 'E545 - 0.0',
         11: 'F135 - C12 Thera',
-        12: 'F216 - T Pochven'
-    };
+        12: 'F216 - T Pochven',
+        13: 'L005 - Frig Hole (short-life)' // Added 20260111
+    });
 
     // all k-space exits are static or K162
-    let c3WH = {
-        1:  'V301 - C1',
-        2:  'I182 - C2',
-        3:  'N968 - C3',
-        4:  'T405 - C4',
-        5:  'N770 - C5',
-        6:  'A982 - C6',
-        7:  'D845 - H',
-        8:  'U210 - L',
-        9:  'J377 - L Turner',
+    let c3WH = Object.assign({}, k162WH, {
+        1: 'V301 - C1',
+        2: 'I182 - C2',
+        3: 'N968 - C3',
+        4: 'T405 - C4',
+        5: 'N770 - C5',
+        6: 'A982 - C6',
+        7: 'D845 - H',
+        8: 'U210 - L',
+        9: 'J377 - L Turner',
         10: 'K346 - 0.0',
         11: 'F135 - C12 Thera',
-        12: 'F216 - T Pochven'
-    };
+        12: 'F216 - T Pochven',
+        13: 'Z006 - Frig Hole (short-life)' // Added 20260111
+    });
 
     // no *wandering* w-space -> w-space
     // all holes are statics or K162
-    let c4WH = {
-        1:  'P060 - C1',
-        2:  'N766 - C2',
-        3:  'C247 - C3',
-        4:  'X877 - C4',
-        5:  'H900 - C5',
-        6:  'U574 - C6',
-        7:  'S047 - H',
-        8:  'N290 - L',
-        9:  'J377 - L Turner',
+    let c4WH = Object.assign({}, k162WH, {
+        1: 'P060 - C1',
+        2: 'N766 - C2',
+        3: 'C247 - C3',
+        4: 'X877 - C4',
+        5: 'H900 - C5',
+        6: 'U574 - C6',
+        7: 'S047 - H',
+        8: 'N290 - L',
+        9: 'J377 - L Turner',
         10: 'K329 - 0.0',
-        11: 'F216 - T Pochven'
-    };
+        11: 'F216 - T Pochven',
+        12: 'M001 - Frig Hole (short-life)' // Added 20260111
+    });
 
-    let c5WH = {
-        1:  'Y790 - C1',
-        2:  'D364 - C2',
-        3:  'M267 - C3',
-        4:  'E175 - C4',
-        5:  'H296 - C5',
-        6:  'V753 - C6',
-        7:  'D792 - H',
-        8:  'C140 - L',
-        9:  'J377 - L Turner',
+    let c5WH = Object.assign({}, k162WH, {
+        1: 'Y790 - C1',
+        2: 'D364 - C2',
+        3: 'M267 - C3',
+        4: 'E175 - C4',
+        5: 'H296 - C5',
+        6: 'V753 - C6',
+        7: 'D792 - H',
+        8: 'C140 - L',
+        9: 'J377 - L Turner',
         10: 'Z142 - 0.0',
-        11: 'F216 - T Pochven'
-    };
+        11: 'F216 - T Pochven',
+        12: 'C008 - Frig Hole (short-life)' // Added 20260111
+    });
 
-    let c6WH = {
-        1:  'Q317 - C1',
-        2:  'G024 - C2',
-        3:  'L477 - C3',
-        4:  'Z457 - C4',
-        5:  'V911 - C5',
-        6:  'W237 - C6',
-        7:  'B520 - H',
-        8:  'D792 - H',
-        9:  'C140 - L',
+    let c6WH = Object.assign({}, k162WH, {
+        1: 'Q317 - C1',
+        2: 'G024 - C2',
+        3: 'L477 - C3',
+        4: 'Z457 - C4',
+        5: 'V911 - C5',
+        6: 'W237 - C6',
+        7: 'B520 - H',
+        8: 'D792 - H',
+        9: 'C140 - L',
         10: 'C391 - L',
         11: 'J377 - L Turner',
         12: 'C248 - 0.0',
         13: 'Z142 - 0.0',
-        14: 'F216 - T Pochven'
-    };
+        14: 'F216 - T Pochven',
+        15: 'G008 - Frig Hole (short-life)' // Added 20260111
+    });
 
     // Shattered WH (some of them are static)
-    let c13WH = {
+    // Cleanup:
+    // - Remove duplicate H296 entry.
+    // - Remove U201 (not found on Anoik).
+    // - Add A009.
+    let c13WH = Object.assign({}, k162WH, {
         1: 'P060 - C1',
         2: 'Z647 - C1',
         3: 'D382 - C2',
@@ -495,8 +492,7 @@
         10: 'Y683 - C4',
         11: 'H296 - C5',
         12: 'H900 - C5',
-        13: 'H296 - C5',
-        14: 'N062 - C5',    // ??
+        14: 'N062 - C5', // ??
         15: 'V911 - C5',
         16: 'U574 - C6',
         17: 'V753 - C6',
@@ -509,15 +505,15 @@
         24: 'C391 - L',
         25: 'J244 - L',
         26: 'J377 - L Turner',
-        27: 'U201 - L',    // ??
         28: 'U210 - L',
         29: 'C248 - 0.0',
         30: 'E545 - 0.0',
         31: 'K346 - 0.0',
-        32: 'Z060 - 0.0'
-    };
+        32: 'Z060 - 0.0',
+        33: 'A009 - C13 (frig)' // Added 20260111
+    });
 
-    let hsWH = {
+    let hsWH = Object.assign({}, k162WH, {
         1: 'Z971 - C1',
         2: 'R943 - C2',
         3: 'X702 - C3',
@@ -530,9 +526,9 @@
         10: 'V283 - 0.0',
         11: 'T458 - C12 Thera',
         12: 'C729 - T Pochven'
-    };
+    });
 
-    let lsWH = {
+    let lsWH = Object.assign({}, k162WH, {
         1: 'Z971 - C1',
         2: 'R943 - C2',
         3: 'X702 - C3',
@@ -545,9 +541,9 @@
         10: 'S199 - 0.0',
         11: 'M164 - C12 Thera',
         12: 'C729 - T Pochven'
-    };
+    });
 
-    let nullWH = {
+    let nullWH = Object.assign({}, k162WH, {
         1: 'Z971 - C1',
         2: 'R943 - C2',
         3: 'X702 - C3',
@@ -560,22 +556,51 @@
         10: 'S199 - 0.0',
         11: 'L031 - C12 Thera',
         12: 'C729 - T Pochven',
-        13: 'U372 - T Pochven'
-    };
+        13: 'U372 - T Pochven',
+        14: 'Q003 - Frig Hole (short-life)' // Added 20260111
+    });
 
-    let pochWH = {
+    let pochWH = Object.assign({}, k162WH, {
         1: 'R081 - C4',
         2: 'X450 - 0.0'
-    };
+    });
+
+    // Thera wormholes (new list so Thera can provide WH dropdown options)
+    let c12WH = Object.assign({}, k162WH, {
+        1: 'Q063 - H', // Added 20260111
+        2: 'V898 - L', // Added 20260111
+        3: 'E587 - 0.0' // Added 20260111
+    });
+
+    // Drifter wormhole types (new lists so Drifter systems can provide WH dropdown options)
+    let c14WH = Object.assign({}, k162WH, {
+        1: 'S877 - Drifter Sentinel' // Added 20260111
+    });
+
+    let c15WH = Object.assign({}, k162WH, {
+        1: 'B735 - Drifter Barbican' // Added 20260111
+    });
+
+    let c16WH = Object.assign({}, k162WH, {
+        1: 'V928 - Drifter Vidette' // Added 20260111
+    });
+
+    let c17WH = Object.assign({}, k162WH, {
+        1: 'C414 - Drifter Conflux' // Added 20260111
+    });
+
+    let c18WH = Object.assign({}, k162WH, {
+        1: 'R259 - Drifter Redoubt' // Added 20260111
+    });
 
     // ================================================================================================================
     //  Signature types
     // ================================================================================================================
-    
+
     // signature types
     return {
         1: { // system type (wh)
-            1: {    // C1 (area id)
+            1: { // C1 (area id)
                 1: c1Combat,
                 2: c1Relic,
                 3: c1Data,
@@ -584,7 +609,7 @@
                 6: c1Ore,
                 7: whGh
             },
-            2: {    // C2
+            2: { // C2
                 1: c2Combat,
                 2: c2Relic,
                 3: c2Data,
@@ -593,7 +618,7 @@
                 6: c2Ore,
                 7: whGh
             },
-            3: {    // C3
+            3: { // C3
                 1: c3Combat,
                 2: c3Relic,
                 3: c3Data,
@@ -602,7 +627,7 @@
                 6: c3Ore,
                 7: whGh
             },
-            4: {    // C4
+            4: { // C4
                 1: c4Combat,
                 2: c4Relic,
                 3: c4Data,
@@ -611,7 +636,7 @@
                 6: c4Ore,
                 7: whGh
             },
-            5: {    // C5
+            5: { // C5
                 1: c5Combat,
                 2: c5Relic,
                 3: c5Data,
@@ -620,7 +645,7 @@
                 6: c5Ore,
                 7: whGh
             },
-            6: {    // C6
+            6: { // C6
                 1: c6Combat,
                 2: c6Relic,
                 3: c6Data,
@@ -629,46 +654,57 @@
                 6: c6Ore,
                 7: whGh
             },
-            12: {   // Thera WH
-                1: c12Combat
+            12: { // Thera WH
+                1: c12Combat,
+                5: c12WH // Added 20260111
             },
-            13: {   // Shattered WH
+            13: { // Shattered WH
                 5: c13WH,
                 6: c13Ore,
                 7: whGh
             },
-            14: {   // Drifter Sentinel WH
-                1: c14Combat
+            14: { // Drifter Sentinel WH
+                1: c14Combat,
+                5: c14WH // Added 20260111
             },
-            15: {   // Drifter Barbican WH
-                1: c15Combat
+            15: { // Drifter Barbican WH
+                1: c15Combat,
+                5: c15WH // Added 20260111
             },
-            16: {   // Drifter Vidette WH
-                1: c16Combat
+            16: { // Drifter Vidette WH
+                1: c16Combat,
+                5: c16WH // Added 20260111
             },
-            17: {   // Drifter Conflux WH
-                1: c17Combat
+            17: { // Drifter Conflux WH
+                1: c17Combat,
+                5: c17WH // Added 20260111
             },
-            18: {   // Drifter Redoubt WH
-                1: c18Combat
+            18: { // Drifter Redoubt WH
+                1: c18Combat,
+                5: c18WH // Added 20260111
             }
         }, // system type (k-space)
         2: {
-            30: {   // High Sec
+            30: { // High Sec
                 5: hsWH,
                 7: hsGh
             },
-            31: {   // Low Sec
+            31: { // Low Sec
                 5: lsWH,
                 7: lsGh
             },
-            32: {   // 0.0
+            32: { // 0.0
                 5: nullWH,
                 7: nsGh
             },
-            33: {   // Pochven
+            33: { // Pochven
                 5: pochWH
             }
         }
     };
 });
+
+/* signatureTypes.js */
+/* ============================================================================ 
+ * File: signatureTypes.js
+ * ========================================================================== */
